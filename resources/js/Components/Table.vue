@@ -6,12 +6,8 @@ defineProps(["headers", "items"]);
 </script>
 <template>
     <div class="overflow-x-auto relative">
-        <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-        >
-            <thead
-                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr v-if="headers">
                     <th
                         scope="col"
@@ -24,11 +20,7 @@ defineProps(["headers", "items"]);
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    v-for="item in items.data"
-                    :key="item"
-                >
+                <tr class="bg-white border-b" v-for="item in items" :key="item">
                     <td
                         class="py-4 px-6"
                         v-for="(itemInner, itemIndex) in item"

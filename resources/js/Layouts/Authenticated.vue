@@ -59,7 +59,9 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('user.index')"
                                     :active="
                                         route().current('user.index') ||
-                                        route().current('user.show')
+                                        route().current('user.show') ||
+                                        route().current('user.create') ||
+                                        route().current('user.edit')
                                     "
                                 >
                                     Users

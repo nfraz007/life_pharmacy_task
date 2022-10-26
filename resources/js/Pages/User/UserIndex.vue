@@ -2,6 +2,9 @@
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import BreezeTable from "@/Components/Table.vue";
+import BreezeSection from "@/Components/Section.vue";
+import BreezeButton from "@/Components/Button.vue";
+import BreezeNavLink from "@/Components/NavLink.vue";
 defineProps({
     headers: Array,
     items: Array,
@@ -12,21 +15,16 @@ defineProps({
     <Head title="Users" />
 
     <BreezeAuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Users
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <BreezeTable
-                        :headers="headers"
-                        :items="items"
-                    ></BreezeTable>
-                </div>
-            </div>
-        </div>
+        <BreezeSection
+            title="Users List"
+            subtitle="List of all user using the application"
+        >
+            <template #action>
+                <BreezeNavLink :href="route('user.create')">
+                    <BreezeButton>Add User</BreezeButton>
+                </BreezeNavLink>
+            </template>
+            <BreezeTable :headers="headers" :items="items"></BreezeTable>
+        </BreezeSection>
     </BreezeAuthenticatedLayout>
 </template>

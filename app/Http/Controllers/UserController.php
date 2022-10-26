@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\UserDetailResource;
 use App\Http\Resources\UserTableResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -30,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('User/UserCreate');
     }
 
     /**
@@ -41,7 +43,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect(route("user.show", $user->id));
     }
 
     /**
@@ -52,6 +60,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $user = new UserDetailResource($user);
         return Inertia::render('User/UserShow', compact("user"));
     }
 
@@ -63,7 +72,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return Inertia::render('User/UserEdit', compact("user"));
     }
 
     /**
@@ -75,7 +84,12 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+        $user->save();
+
+        return redirect(route("user.show", $user->id));
     }
 
     /**
