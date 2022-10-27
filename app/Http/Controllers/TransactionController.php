@@ -50,6 +50,8 @@ class TransactionController extends Controller
             "amount" => $request->amount,
         ]);
 
+        $this->sync_order($order, $transaction);
+
         return redirect(route("order.show", $order->id));
     }
 
@@ -93,6 +95,8 @@ class TransactionController extends Controller
         $transaction->amount = $request->amount;
         $transaction->save();
 
+        $this->sync_order($order, $transaction);
+
         return redirect(route("order.show", $order->id));
     }
 
@@ -105,6 +109,16 @@ class TransactionController extends Controller
     public function destroy(Order $order, Transaction $transaction)
     {
         $transaction->delete();
+
+        $this->sync_order($order, $transaction);
+
         return redirect(route("order.show", $order->id));
+    }
+
+    public function sync_order(Order $order, Transaction $transaction)
+    {
+        $amount_sum = Transaction::where("order_id", $order->id)->sum("amount");
+        $order->transaction_status = $amount_sum == 0 ? 0 : ($amount_sum < $order->total ? 1 : 2);
+        $order->save();
     }
 }

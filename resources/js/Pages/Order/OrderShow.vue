@@ -81,7 +81,7 @@ const data = {
         >
             <template #action>
                 <BreezeNavLink :href="route('transaction.create', order.id)">
-                    <BreezeButton>Add Order</BreezeButton>
+                    <BreezeButton>Add Transaction</BreezeButton>
                 </BreezeNavLink>
             </template>
             <BreezeTable :headers="headers" :items="items"></BreezeTable>
