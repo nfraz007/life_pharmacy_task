@@ -43,7 +43,10 @@ const showingNavigationDropdown = ref(false);
                                         route().current('order.index') ||
                                         route().current('order.show') ||
                                         route().current('order.create') ||
-                                        route().current('order.edit')
+                                        route().current('order.edit') ||
+                                        route().current('transaction.show') ||
+                                        route().current('transaction.create') ||
+                                        route().current('transaction.edit')
                                     "
                                 >
                                     Orders

@@ -24,6 +24,7 @@ class OrderDetailResource extends JsonResource
             "product_price" => $this->product_price,
             "qty" => $this->qty,
             "total" => $this->total,
+            "status" => $this->status,
             "status_label" => $this->status_label,
             "transaction_status_label" => $this->transaction_status_label,
             "created_at_label" => $this->created_at_label,

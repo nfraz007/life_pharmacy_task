@@ -3,7 +3,9 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Transaction;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/order', OrderController::class);
+    Route::post('/order/{order}/mark_inprocess', [OrderController::class, "mark_inprocess"])->name("order.mark_inprocess");
+    Route::post('/order/{order}/mark_completed', [OrderController::class, "mark_completed"])->name("order.mark_completed");
+    Route::resource('/order/{order}/transaction', TransactionController::class);
 });
 
 

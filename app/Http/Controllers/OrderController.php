@@ -6,8 +6,10 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderDetailResource;
 use App\Http\Resources\OrderTableResource;
+use App\Http\Resources\TransactionTableResource;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\User;
 use Inertia\Inertia;
 
@@ -72,7 +74,12 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order = new OrderDetailResource($order);
-        return Inertia::render('Order/OrderShow', compact("order"));
+
+        // transaction
+        $headers = ["ID", "Type", "Amount", "Created At", "Updated At", "Action"];
+        $transactions = Transaction::where("order_id", $order->id)->get();
+        $items = TransactionTableResource::collection($transactions);
+        return Inertia::render('Order/OrderShow', compact("order", "headers", "items"));
     }
 
     /**
@@ -123,5 +130,19 @@ class OrderController extends Controller
     {
         $order->delete();
         return redirect(route("order.index"));
+    }
+
+    public function mark_inprocess(Order $order)
+    {
+        $order->status = 1;
+        $order->save();
+        return redirect(route("order.show", $order->id));
+    }
+
+    public function mark_completed(Order $order)
+    {
+        $order->status = 2;
+        $order->save();
+        return redirect(route("order.show", $order->id));
     }
 }

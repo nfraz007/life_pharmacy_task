@@ -43,4 +43,9 @@ class Order extends Model
     {
         return $this->updated_at ? $this->updated_at->format(config("constants.datetime_label")) : "";
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
