@@ -20,4 +20,46 @@ Create a Laravel App with following specifications & features:
 -   Server: XAMPP
 -   Mail Client: Mailtrap
 
+## Demo
+
+[Youtube Link](https://youtu.be/cvJ-3Zy1Uvc)
+
 ## Installation Process
+
+> Pull code from github
+
+```sh
+git clone https://github.com/nfraz007/life_pharmacy_task.git
+cd life_pharmacy_task
+```
+
+> open this repo to any code editor
+
+> create a new database `life_pharmacy_task` and put the credential in `.env` file. if you have mailtrap credential then add them as well
+
+```sh
+composer install
+php artisan install
+```
+
+> If the database credential is correct you should run migration and seeder file
+
+![](snapshots/cmd_install.png)
+
+> Login
+> ![](snapshots/login.png)
+
+> Dashboard
+> ![](snapshots/dashboard.png)
+
+> User List
+> ![](snapshots/user.png)
+
+> Product
+> ![](snapshots/product.png)
+
+> Order List
+> ![](snapshots/order.png)
+
+> Order Detail
+> ![](snapshots/order_detail.png)![](snapshots/order_detail_extra.png)
