@@ -22,8 +22,8 @@ const data = {
     Name: props.product?.name,
     Price: props.product?.price,
     "In Stock": props.product?.in_stock_label,
-    "Created At": props.product?.created_at,
-    "Updated At": props.product?.updated_at,
+    "Created At": props.product?.created_at_label,
+    "Updated At": props.product?.updated_at_label,
 };
 </script>
 

@@ -18,7 +18,7 @@ class UserTableResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "created_at" => $this->created_at->format(config("constants.datetime_label")),
+            "created_at_label" => $this->created_at_label,
             "action_show" => route("user.show", $this->id)
         ];
     }

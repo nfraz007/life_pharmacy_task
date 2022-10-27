@@ -19,7 +19,7 @@ class ProductTableResource extends JsonResource
             "name" => $this->name,
             "price" => $this->price,
             "in_stock_label" => $this->in_stock_label,
-            "created_at" => $this->created_at->format(config("constants.datetime_label")),
+            "created_at_label" => $this->created_at_label,
             "action_show" => route("product.show", $this->id)
         ];
     }

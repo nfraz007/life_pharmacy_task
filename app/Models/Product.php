@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $appends = ["in_stock_label"];
+    protected $appends = ["in_stock_label", "created_at_label", "updated_at_label"];
 
     protected $fillable = [
         'name',
@@ -19,5 +19,15 @@ class Product extends Model
     public function getInStockLabelAttribute()
     {
         return $this->in_stock ? "Yes" : "No";
+    }
+
+    public function getCreatedAtLabelAttribute()
+    {
+        return $this->created_at ? $this->created_at->format(config("constants.datetime_label")) : "";
+    }
+
+    public function getUpdatedAtLabelAttribute()
+    {
+        return $this->updated_at ? $this->updated_at->format(config("constants.datetime_label")) : "";
     }
 }

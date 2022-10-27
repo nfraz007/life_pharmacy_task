@@ -7,23 +7,42 @@ import BreezeInput from "@/Components/Input.vue";
 import BreezeSelect from "@/Components/Select.vue";
 import BreezeButton from "@/Components/Button.vue";
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
-import { computed } from "@vue/runtime-core";
+import { computed, watch } from "@vue/runtime-core";
 
-const props = defineProps(["in_stock_data", "product"]);
-const title = computed(() => `Edit Product #${props.user.id}`);
+const props = defineProps([
+    "order",
+    "user_data",
+    "product_data",
+    "product_price_data",
+]);
+const title = computed(() => `Edit Order #${props.order.id}`);
 const form = useForm({
-    name: props.product?.name,
-    price: props.product?.price,
-    in_stock: props.product?.in_stock,
+    user_id: props.order?.user_id,
+    product_id: props.order?.product_id,
+    product_price: props.order?.product_price,
+    qty: props.order?.qty,
+    total: props.order?.total,
+});
+
+const product_price = computed(() =>
+    form.product_id ? props.product_price_data[form.product_id] : ""
+);
+
+watch(form, () => {
+    form.product_price = form.product_id
+        ? props.product_price_data[form.product_id]
+        : "";
+    form.total =
+        form.product_price && form.qty ? form.product_price * form.qty : 0;
 });
 
 const submit = () => {
-    form.put(route("product.update", props.product.id));
+    form.put(route("order.update", props.order.id));
 };
 </script>
 
 <template>
-    <Head title="Product" />
+    <Head title="Order" />
 
     <BreezeAuthenticatedLayout>
         <BreezeSection :title="title">
@@ -34,7 +53,7 @@ const submit = () => {
                             <h3
                                 class="text-lg font-medium leading-6 text-gray-900"
                             >
-                                Product Information
+                                Order Information
                             </h3>
                             <p class="mt-1 text-sm text-gray-600">
                                 Use a permanent address where you can receive
@@ -47,44 +66,71 @@ const submit = () => {
                             <div class="overflow-hidden shadow sm:rounded-md">
                                 <div class="bg-white px-4 py-5 sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6 sm:col-span-3">
+                                        <div class="col-span-6 sm:col-span-6">
                                             <BreezeLabel
-                                                for="name"
-                                                value="Name"
-                                            />
-                                            <BreezeInput
-                                                id="name"
-                                                type="text"
-                                                class="mt-1 block w-full"
-                                                v-model="form.name"
-                                                required
-                                                autofocus
-                                            />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <BreezeLabel
-                                                for="price"
-                                                value="Price"
-                                            />
-                                            <BreezeInput
-                                                id="price"
-                                                type="number"
-                                                class="mt-1 block w-full"
-                                                v-model="form.price"
-                                                required
-                                            />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <BreezeLabel
-                                                for="in_stock"
-                                                value="In Stock"
+                                                for="user_id"
+                                                value="User"
                                             />
                                             <BreezeSelect
-                                                id="in_stock"
+                                                id="user_id"
                                                 class="mt-1 block w-full"
-                                                v-model="form.in_stock"
+                                                v-model="form.user_id"
                                                 required
-                                                :data="in_stock_data"
+                                                :data="user_data"
+                                            />
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <BreezeLabel
+                                                for="product_id"
+                                                value="Product"
+                                            />
+                                            <BreezeSelect
+                                                id="product_id"
+                                                class="mt-1 block w-full"
+                                                v-model="form.product_id"
+                                                required
+                                                :data="product_data"
+                                            />
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <BreezeLabel
+                                                for="product_price"
+                                                value="Product Price"
+                                            />
+                                            <BreezeInput
+                                                id="product_price"
+                                                type="number"
+                                                class="mt-1 block w-full"
+                                                v-model="form.product_price"
+                                                required
+                                                disabled
+                                            />
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <BreezeLabel
+                                                for="qty"
+                                                value="Qty"
+                                            />
+                                            <BreezeInput
+                                                id="qty"
+                                                type="number"
+                                                class="mt-1 block w-full"
+                                                v-model="form.qty"
+                                                required
+                                            />
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <BreezeLabel
+                                                for="total"
+                                                value="Total"
+                                            />
+                                            <BreezeInput
+                                                id="total"
+                                                type="number"
+                                                class="mt-1 block w-full"
+                                                v-model="form.total"
+                                                required
+                                                disabled
                                             />
                                         </div>
                                     </div>

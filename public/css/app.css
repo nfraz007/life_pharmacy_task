@@ -685,6 +685,9 @@ select {
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
+.col-span-12 {
+  grid-column: span 12 / span 12;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;

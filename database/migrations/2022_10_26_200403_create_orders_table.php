@@ -17,11 +17,14 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer("user_id");
             $table->integer("product_id");
-            $table->integer("transaction_id");
+            $table->string("user_name");
+            $table->string("user_email");
+            $table->string("product_name");
+            $table->integer("product_price")->default(0);
             $table->integer("qty")->default(0);
-            $table->integer("price")->default(0);
             $table->integer("total")->default(0);
             $table->integer("status")->default(0)->comment("0: pending, 1: inprocess, 2: completed");
+            $table->integer("transaction_status")->default(0)->comment("0: unpaid, 1: partial, 2: paid");
             $table->timestamps();
         });
     }

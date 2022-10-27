@@ -38,16 +38,15 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </BreezeNavLink>
                                 <BreezeNavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('order.index')"
+                                    :active="
+                                        route().current('order.index') ||
+                                        route().current('order.show') ||
+                                        route().current('order.create') ||
+                                        route().current('order.edit')
+                                    "
                                 >
                                     Orders
-                                </BreezeNavLink>
-                                <BreezeNavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Transactions
                                 </BreezeNavLink>
                                 <BreezeNavLink
                                     :href="route('product.index')"

@@ -21,9 +21,9 @@ const data = {
     ID: props.user?.id,
     Name: props.user?.name,
     Email: props.user?.email,
-    "Created At": props.user?.created_at,
-    "Updated At": props.user?.updated_at,
-    "Email Verified At": props.user?.email_verified_at,
+    "Created At": props.user?.created_at_label,
+    "Updated At": props.user?.updated_at_label,
+    "Email Verified At": props.user?.email_verified_at_label,
 };
 </script>
 
