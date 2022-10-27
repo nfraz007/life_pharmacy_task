@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserDetailResource;
 use App\Http\Resources\UserTableResource;
 use App\Models\User;
@@ -20,8 +20,8 @@ class UserController extends Controller
     public function index()
     {
         $headers = ["ID", "Name", "Email", "Created At", "Action"];
-        $users = User::all();
-        $items = UserTableResource::collection($users);
+        $user = User::all();
+        $items = UserTableResource::collection($user);
         return Inertia::render('User/UserIndex', compact("headers", "items"));
     }
 
@@ -100,6 +100,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect(route("user.index"));
     }
 }

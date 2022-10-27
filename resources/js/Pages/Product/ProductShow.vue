@@ -7,42 +7,44 @@ import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeButton from "@/Components/Button.vue";
 import { computed } from "@vue/runtime-core";
 const props = defineProps({
-    user: Object,
+    product: Object,
 });
-const title = computed(() => `User Details #${props.user.id}`);
+const title = computed(() => `Product Details #${props.product.id}`);
 
 const form = useForm({});
-const delete_user = () => {
+const delete_product = () => {
     if (confirm("Are you sure you want to delete ?")) {
-        form.delete(route("user.destroy", props.user.id));
+        form.delete(route("product.destroy", props.product.id));
     }
 };
 const data = {
-    ID: props.user?.id,
-    Name: props.user?.name,
-    Email: props.user?.email,
-    "Created At": props.user?.created_at,
-    "Updated At": props.user?.updated_at,
-    "Email Verified At": props.user?.email_verified_at,
+    ID: props.product?.id,
+    Name: props.product?.name,
+    Price: props.product?.price,
+    "In Stock": props.product?.in_stock_label,
+    "Created At": props.product?.created_at,
+    "Updated At": props.product?.updated_at,
 };
 </script>
 
 <template>
-    <Head title="Users" />
+    <Head title="Products" />
 
     <BreezeAuthenticatedLayout>
         <BreezeSection
             :title="title"
-            subtitle="Detail of user using the application"
+            subtitle="Detail of product in the application"
         >
             <template #action>
-                <BreezeNavLink :href="route('user.create')">
-                    <BreezeButton>Add User</BreezeButton>
+                <BreezeNavLink :href="route('product.create')">
+                    <BreezeButton>Add Product</BreezeButton>
                 </BreezeNavLink>
-                <BreezeNavLink :href="route('user.edit', user.id)">
-                    <BreezeButton>Edit User</BreezeButton>
+                <BreezeNavLink :href="route('product.edit', product.id)">
+                    <BreezeButton>Edit Product</BreezeButton>
                 </BreezeNavLink>
-                <BreezeButton @click="delete_user">Delete User</BreezeButton>
+                <BreezeButton @click="delete_product"
+                    >Delete Product</BreezeButton
+                >
             </template>
             <BreezeSectionBody :data="data"></BreezeSectionBody>
         </BreezeSection>

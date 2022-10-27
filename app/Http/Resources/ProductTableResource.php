@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserTableResource extends JsonResource
+class ProductTableResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,10 @@ class UserTableResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "email" => $this->email,
+            "price" => $this->price,
+            "in_stock_label" => $this->in_stock_label,
             "created_at" => $this->created_at->format(config("constants.datetime_label")),
-            "action_show" => route("user.show", $this->id)
+            "action_show" => route("product.show", $this->id)
         ];
     }
 }

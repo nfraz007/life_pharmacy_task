@@ -50,8 +50,13 @@ const showingNavigationDropdown = ref(false);
                                     Transactions
                                 </BreezeNavLink>
                                 <BreezeNavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('product.index')"
+                                    :active="
+                                        route().current('product.index') ||
+                                        route().current('product.show') ||
+                                        route().current('product.create') ||
+                                        route().current('product.edit')
+                                    "
                                 >
                                     Products
                                 </BreezeNavLink>

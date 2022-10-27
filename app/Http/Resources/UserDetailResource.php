@@ -18,8 +18,9 @@ class UserDetailResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "created_at" => $this->created_at->format(config("constants.datetime")),
-            "updated_at" => $this->updated_at->format(config("constants.datetime")),
-        ];;
+            "created_at" => $this->created_at->format(config("constants.datetime_label")),
+            "updated_at" => $this->updated_at->format(config("constants.datetime_label")),
+            "email_verified_at" => $this->email_verified_at ? $this->email_verified_at->format(config("constants.datetime_label")) : "",
+        ];
     }
 }
