@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->email_verified_at ? $this->email_verified_at->format(config("constants.datetime_label")) : "";
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -30,4 +30,9 @@ class Transaction extends Model
     {
         return $this->updated_at ? $this->updated_at->format(config("constants.datetime_label")) : "";
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

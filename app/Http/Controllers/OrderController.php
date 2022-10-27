@@ -7,10 +7,12 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderDetailResource;
 use App\Http\Resources\OrderTableResource;
 use App\Http\Resources\TransactionTableResource;
+use App\Mail\OrderCreatedMail;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -25,7 +27,7 @@ class OrderController extends Controller
         $headers = ["ID", "User", "Product", "Total", "Status", "Transaction", "Created At", "Action"];
         $order = Order::all();
         $items = OrderTableResource::collection($order);
-        return Inertia::render('Product/ProductIndex', compact("headers", "items"));
+        return Inertia::render('Order/OrderIndex', compact("headers", "items"));
     }
 
     /**
@@ -61,6 +63,8 @@ class OrderController extends Controller
             "qty" => $request->qty,
             "total" => $request->qty * $product->price,
         ]);
+
+        Mail::to($user->email)->send(new OrderCreatedMail($order));
 
         return redirect(route("order.show", $order->id));
     }
